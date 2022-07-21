@@ -34,7 +34,6 @@ build/
 /HELP.md
 /mvnw
 /mvnw.cmd
-/pom.xml
 /.mvn/
 /.idea/
 /src/main/resources/
