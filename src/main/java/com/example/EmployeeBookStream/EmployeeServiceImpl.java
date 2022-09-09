@@ -1,5 +1,8 @@
 package com.example.EmployeeBookStream;
 
+import Exceptions.EmployeeAlreadyAddedException;
+import Exceptions.EmployeeNotFoundException;
+
 import java.util.Collection;
 import java.util.Map;
 
@@ -23,6 +26,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee add(Employee employee) {
+        if (employeeMap.containsValue(employee)){
+            throw new EmployeeAlreadyAddedException();
+        }
+        employeeMap.put(employee.hashCode(), employee);
+        return employee;
+    }
+
+    @Override
     public Employee remove(String fristName, String secondName, Integer salary, Integer id) {
         Employee employee = new Employee(fristName, secondName, salary, id);
         if (employeeMap.containsValue(employee)){
@@ -33,8 +45,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee remove(Employee employee) {
+        if (employeeMap.containsValue(employee)){
+            employeeMap.remove(employee);
+            return employee;
+        }
+        throw new EmployeeNotFoundException();
+    }
+
+    @Override
     public Employee find(String fristName, String secondName, Integer salary, Integer id) {
         Employee employee = new Employee(fristName, secondName, salary, id);
+        if (employeeMap.containsValue(employee)){
+            return employeeMap.get(employee.hashCode());
+        }
+        throw new EmployeeNotFoundException();
+    }
+
+    @Override
+    public Employee find(Employee employee) {
         if (employeeMap.containsValue(employee)){
             return employeeMap.get(employee.hashCode());
         }
