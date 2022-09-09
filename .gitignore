@@ -38,3 +38,5 @@ build/
 /.idea/
 /src/main/resources/
 /src/main/java/com/example/out/
+/web/
+/.gitignore
